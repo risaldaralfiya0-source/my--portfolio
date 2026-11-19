@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Theme tokens. Dark is the default; adding `.light` to <html> swaps them all.
+   Values are space-separated RGB channels so Tailwind's <alpha-value> works.
+--------------------------------------------------------------------------- */
+:root {
+  --bg: 10 10 15; /* #0a0a0f */
+  --surface: 17 17 26;
+  --surface-2: 23 23 34;
+  --txt: 245 245 250;
+  --muted: 153 158 175;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.16);
+}
+
+.light {
+  --bg: 250 250 253;
+  --surface: 255 255 255;
+  --surface-2: 244 244 249;
+  --txt: 18 18 28;
+  --muted: 88 93 109;
+  --line: rgba(15, 15, 30, 0.1);
+  --line-strong: rgba(15, 15, 30, 0.18);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg font-sans text-txt antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Keyboard users get a clear, on-brand focus ring everywhere. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-violet ring-offset-2 ring-offset-bg;
+  }
+
+  ::selection {
+    @apply bg-brand-violet/40 text-txt;
+  }
+
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  .section-y {
+    @apply py-20 sm:py-24 lg:py-32;
+  }
+
+  .glass {
+    @apply border-b border-line bg-bg/70 backdrop-blur-xl;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface/70 shadow-card;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-light;
+  }
+
+  .gradient-text {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold
+      transition-all duration-300 focus-visible:ring-2 focus-visible:ring-brand-violet;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-gradient text-white shadow-glow hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-20px_rgba(99,102,241,0.7)];
+  }
+
+  .btn-secondary {
+    @apply btn border border-line-strong bg-surface/60 text-txt hover:-translate-y-0.5 hover:border-brand-violet/60 hover:bg-surface2;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-full border border-line bg-surface2/70 px-3 py-1.5
+      text-xs font-medium text-muted transition-colors duration-300;
+  }
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
