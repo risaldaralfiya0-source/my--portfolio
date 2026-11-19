@@ -1,0 +1,6 @@
+node_modules
+dist
+.vercel
+portfolio-deploy.zip
+.DS_Store
+*.local
